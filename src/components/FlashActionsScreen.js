@@ -9,6 +9,7 @@ let {
 
 import Button from 'react-native-button';
 import styles from '../config/styles';
+import FlashCamera from './FlashCamera';
 
 export default class FlashActionsScreen extends React.Component {
   handleCameraPress() {
@@ -16,7 +17,10 @@ export default class FlashActionsScreen extends React.Component {
       'Camera!',
       'You have pressed the camera button',
       [{text: 'Cancel', onPress: () => console.log('[Camera alert]: Cancel')},
-       {text: 'OK', onPress: () => console.log('[Camera alert]: OK')}]
+       {text: 'OK', onPress: () => this.props.navigator.push({
+         title: 'Camera',
+         component: FlashCamera,
+       })}]
     );
   }
 
@@ -35,10 +39,10 @@ export default class FlashActionsScreen extends React.Component {
         <Text>
         Record something
       </Text>
-        <Button onPress={this.handleCameraPress}>
+        <Button onPress={this.handleCameraPress.bind(this)}>
         Camera
       </Button>
-        <Button onPress={this.handleAudioPress}>
+        <Button onPress={this.handleAudioPress.bind(this)}>
         Audio
       </Button>
         </View>
