@@ -8,25 +8,32 @@ let {
   AppRegistry,
   Text,
   View,
+  TabBarIOS,
 } = React;
 
+import Camera from 'react-native-camera';
 import styles from './src/config/styles';
+import TabCollections from './src/components/TabCollections';
+import TabFlash from './src/components/TabFlash';
 
 class Remember extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTab: 'Collections'
+    };
+  }
+
+  handleTabPress(tabTitle) {
+    this.setState({selectedTab: tabTitle});
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+        <TabBarIOS>
+        <TabCollections onPress={this.handleTabPress.bind(this)} selectedTab={this.state.selectedTab}/>
+        <TabFlash onPress={this.handleTabPress.bind(this)} selectedTab={this.state.selectedTab}/>
+        </TabBarIOS>
     );
   }
 }
