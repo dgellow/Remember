@@ -2,8 +2,6 @@
 
 import React from 'react-native';
 let {
-  AppRegistry,
-  TabBarIOS,
   View,
   Text,
   AlertIOS,
@@ -12,7 +10,7 @@ let {
 import Button from 'react-native-button';
 import styles from '../config/styles';
 
-export default class TabFlash extends React.Component {
+export default class FlashActionsScreen extends React.Component {
   handleCameraPress() {
     AlertIOS.alert(
       'Camera!',
@@ -32,16 +30,7 @@ export default class TabFlash extends React.Component {
   }
 
   render() {
-    var {
-      selectedTab,
-      onPress,
-    } = this.props;
-
-    let title = 'Flash';
     return (
-        <TabBarIOS.Item title={title}
-      selected={selectedTab === title}
-      onPress={onPress.bind(null, title)}>
         <View style={styles.container}>
         <Text>
         Record something
@@ -53,7 +42,6 @@ export default class TabFlash extends React.Component {
         Audio
       </Button>
         </View>
-        </TabBarIOS.Item>
     );
   }
 };

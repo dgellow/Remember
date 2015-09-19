@@ -13,26 +13,31 @@ let {
 
 import Camera from 'react-native-camera';
 import styles from './src/config/styles';
-import TabCollections from './src/components/TabCollections';
-import TabFlash from './src/components/TabFlash';
+import CollectionsNavigator from './src/components/CollectionsNavigator';
+import FlashNavigator from './src/components/FlashNavigator';
 
 class Remember extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'Collections'
+      selectedTab: 'collections'
     };
-  }
-
-  handleTabPress(tabTitle) {
-    this.setState({selectedTab: tabTitle});
   }
 
   render() {
     return (
         <TabBarIOS>
-        <TabCollections onPress={this.handleTabPress.bind(this)} selectedTab={this.state.selectedTab}/>
-        <TabFlash onPress={this.handleTabPress.bind(this)} selectedTab={this.state.selectedTab}/>
+          <TabBarIOS.Item title='Collections'
+                          selected={this.state.selectedTab === 'collections'}
+            onPress={() => this.setState({selectedTab: 'collections'})}>
+            <CollectionsNavigator/>
+          </TabBarIOS.Item>
+
+          <TabBarIOS.Item title='Flash'
+                          selected={this.state.selectedTab === 'flash'}
+            onPress={() => this.setState({selectedTab: 'flash'})}>
+            <FlashNavigator/>
+          </TabBarIOS.Item>
         </TabBarIOS>
     );
   }
