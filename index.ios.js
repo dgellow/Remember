@@ -27,15 +27,17 @@ class Remember extends React.Component {
   render() {
     return (
         <TabBarIOS>
-          <TabBarIOS.Item title='Collections'
-                          selected={this.state.selectedTab === 'collections'}
-            onPress={() => this.setState({selectedTab: 'collections'})}>
+        <TabBarIOS.Item
+      title='Collections'
+      selected={this.state.selectedTab === 'collections'}
+      onPress={() => this.setState({selectedTab: 'collections'})}>
             <CollectionsNavigator/>
           </TabBarIOS.Item>
 
-          <TabBarIOS.Item title='Flash'
-                          selected={this.state.selectedTab === 'flash'}
-            onPress={() => this.setState({selectedTab: 'flash'})}>
+        <TabBarIOS.Item
+      title='Flash'
+      selected={this.state.selectedTab === 'flash'}
+      onPress={() => this.setState({selectedTab: 'flash'})}>
             <FlashNavigator/>
           </TabBarIOS.Item>
         </TabBarIOS>
