@@ -5,9 +5,11 @@ let {
   StyleSheet,
   TouchableHighlight,
   Text,
+  AlertIOS,
 } = React;
 
 import Camera from 'react-native-camera';
+import FlashPreviewScreen from './FlashPreviewScreen';
 
 export default class FlashCamera extends React.Component {
   constructor(props) {
@@ -17,12 +19,29 @@ export default class FlashCamera extends React.Component {
     };
   }
 
-  handleBarCodeRead(ev) {
-    console.log(ev);
-  }
-
   handleTakePicture() {
-    this.refs.cam.capture((err, data) => console.log(err, data));
+    this.refs.cam.capture((error, data) => {
+      if (error) {
+        console.error(error);
+        AlertIOS.alert('An error occurred during picture taking');
+      } else {
+        this.props.navigator.replace({
+          title: 'Preview',
+          component: FlashPreviewScreen,
+          leftButtonTitle: 'Cancel',
+          rightButtonTitle: 'Done',
+          onLeftButtonPress: () => {
+            this.props.navigator.pop();
+          },
+          onRightButtonPress: () => {
+            this.props.navigator.pop();
+          },
+          passProps: {
+            assetUri: data
+          }
+        });
+      }
+    });
   }
 
   render() {
@@ -31,7 +50,7 @@ export default class FlashCamera extends React.Component {
       style={styles.container}
       onBarCodeRead={this.handleBarCodeRead}
       type={this.state.cameraType}>
-        <TouchableHighlight onPress={this.handleTakePicture}>
+        <TouchableHighlight onPress={this.handleTakePicture.bind(this)}>
         <Text>Take Picture</Text>
         </TouchableHighlight>
         </Camera>

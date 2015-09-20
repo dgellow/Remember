@@ -12,6 +12,7 @@ export default class FlashNavigator extends React.Component {
   render() {
     return React.createElement(NavigatorIOS, {
       style: styles.container,
+      itemWrapperStyle: styles.wrapper,
       initialRoute: {
         title: 'Flash',
         component: FlashActionsScreen,
@@ -23,5 +24,9 @@ export default class FlashNavigator extends React.Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+
+  wrapper: {
+    marginTop: 70
   }
 });
