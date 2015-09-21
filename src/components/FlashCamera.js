@@ -5,6 +5,7 @@ let {
   StyleSheet,
   TouchableHighlight,
   Text,
+  Image,
   AlertIOS,
 } = React;
 
@@ -53,11 +54,16 @@ export default class FlashCamera extends React.Component {
 
   render() {
     return (
-        <Camera ref="cam"
-      style={styles.container}
-      type={this.state.cameraType}>
-        <TouchableHighlight onPress={this.handleTakePicture.bind(this)}>
-        <Text>Take Picture</Text>
+        <Camera
+          ref="cam"
+          style={styles.container}
+          type={this.state.cameraType}>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.handleTakePicture.bind(this)}>
+        <Image
+          style={styles.buttonImage}
+          source={require('image!ic_camera_alt')} />
         </TouchableHighlight>
         </Camera>
     );
@@ -71,4 +77,12 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
+
+  button: {
+    padding: 20,
+  },
+
+  buttonImage: {
+    tintColor: '#666666',
+  }
 });

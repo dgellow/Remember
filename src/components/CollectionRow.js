@@ -15,10 +15,13 @@ export default class CollectionRow extends React.Component {
     return (
         <TouchableHighlight
       onPress={this.props.onPress}>
-        <View style={styles.rowContainer}>
-        <Image style={styles.thumb} source={{uri: image}} />
-        <Text style={styles.title}>{name}</Text>
-        <View style={styles.separator} />
+        <View style={styles.container}>
+        <View style={styles.imageWrapper}>
+        <Image style={styles.image} source={{uri: image}} />
+        </View>
+        <View style={styles.textWrapper}>
+        <Text style={styles.text}>{name}</Text>
+        </View>
         </View>
         </TouchableHighlight>
     );
@@ -26,34 +29,37 @@ export default class CollectionRow extends React.Component {
 };
 
 var styles = StyleSheet.create({
-  rowContainer: {
+  container: {
+    flex: 1,
     flexDirection: 'row',
-    padding: 10
-  },
-
-  textContainer: {
-    flex: 1
-  },
-
-  thumb: {
-    width: 80,
     height: 80,
-    marginRight: 10
+    backgroundColor: '#FFFFFF',
   },
 
-  title: {
-    fontSize: 20,
-    color: '#FF8000',
-    fontWeight: 'bold'
+  imageWrapper: {
+    flex: .2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
   },
 
-  subtitle: {
-    fontSize: 16,
-    color: '#656565'
+  image: {
+    resizeMode: 'cover',
+    width: 200,
+    height: 200,
+    flex: 1,
   },
 
-  separator: {
-    height: 1,
-    backgroundColor: '#dddddd'
+  textWrapper: {
+    flex: .8,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#AAAAAA',
   },
+
+  text: {
+    color: '#888888',
+  }
 });

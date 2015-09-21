@@ -78,6 +78,5 @@ var styles = StyleSheet.create({
 
   wrapper: {
     flex: 1,
-    paddingTop: 70
   }
 });

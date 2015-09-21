@@ -2,6 +2,7 @@
 
 import React from 'react-native';
 let {
+  StyleSheet,
   ListView,
 } = React;
 
@@ -24,9 +25,15 @@ export default class CollectionsItemsListScreen extends React.Component {
 
   render() {
     return (
-        <ListView
+        <ListView style={styles.list}
       dataSource={this.state.dataSource}
       renderRow={this.renderRow.bind(this)}/>
     );
   }
 };
+
+var styles = StyleSheet.create({
+  list: {
+    backgroundColor: '#B5C6CC',
+  },
+});

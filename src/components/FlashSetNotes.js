@@ -24,13 +24,32 @@ export default class FlashSetNotes extends React.Component {
 
   render() {
     return (
-        <View style={{flex: 1}}>
-        <Text>Notes: (100/100)</Text>
+        <View style={styles.container}>
         <TextInput
-      style={{height: 60, borderColor: 'gray', borderWidth: 1}}
+      style={styles.input}
+      autoFocus={true}
+      multiline={true}
       onChangeText={(text) => this.setState({text})}
       value={this.state.text} />
+        <View style={styles.separator} />
         </View>
     );
   }
 };
+
+var styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#B5C6CC',
+    flex: 1,
+  },
+
+  input: {
+    flex: .4,
+    padding: 5,
+    backgroundColor: '#FFFFFF',
+  },
+
+  separator: {
+    flex: .6,
+  }
+});

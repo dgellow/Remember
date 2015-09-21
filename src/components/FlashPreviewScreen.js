@@ -81,7 +81,7 @@ export default class FlashPreviewScreen extends React.Component {
   handleNotesPress() {
     this.props.navigator.push({
       component: FlashSetNotes,
-      title: 'Enter some notes',
+      title: 'Write a quick note',
       leftButtonTitle: 'Cancel',
       rightButtonTitle: 'Done',
       onLeftButtonPress: () => this.props.navigator.pop(),
@@ -104,15 +104,13 @@ export default class FlashPreviewScreen extends React.Component {
   render() {
     let {image} = FlashPreviewStore.get();
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <Image
           source={{uri: image}}
-          style={{
-            flex: 0.6,
-            resizeMode: 'contain',
-          }} />
-        <TableView style={{flex: 0.4}}>
-          <Section label="Add information" arrow={true}>
+      style={styles.image} />
+        <TableView style={styles.table}
+        tableViewCellStyle={TableView.Consts.CellStyle.Subtitle}>
+        <Section label="Add information" style={styles.section} arrow={true}>
             <Item
               value="collection"
               onPress={this.handleCollectionPress.bind(this)}
@@ -131,3 +129,29 @@ export default class FlashPreviewScreen extends React.Component {
     );
   }
 };
+
+var styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#B5C6CC',
+    flex: 1,
+  },
+
+  image: {
+    flex: 0.6,
+    resizeMode: 'contain',
+  },
+
+  table: {
+    flex: 0.4,
+  },
+
+  section: {
+    backgroundColor: '#B5C6CC',
+  },
+
+  tableTitle: {
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    marginBottom: 30,
+  },
+});

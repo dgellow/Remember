@@ -2,13 +2,14 @@
 
 import React from 'react-native';
 let {
+  StyleSheet,
   View,
   Text,
+  Image,
   AlertIOS,
+  TouchableHighlight,
 } = React;
 
-import Button from 'react-native-button';
-import styles from '../config/styles';
 import FlashCamera from './FlashCamera';
 
 export default class FlashActionsScreen extends React.Component {
@@ -31,16 +32,65 @@ export default class FlashActionsScreen extends React.Component {
   render() {
     return (
         <View style={styles.container}>
-          <Text>
-            Record something
-          </Text>
-          <Button onPress={this.handleCameraPress.bind(this)}>
-            Camera
-          </Button>
-          <Button onPress={this.handleAudioPress.bind(this)}>
-            Audio
-          </Button>
+        <View style={styles.buttonWrapper}>
+        <TouchableHighlight
+      style={styles.button}
+      onPress={this.handleCameraPress.bind(this)}>
+        <View style={styles.camera}>
+        <Image source={require('image!ic_camera_alt')} />
+        <Text style={styles.buttonTitle}>Camera</Text>
+      </View>
+        </TouchableHighlight>
+        </View>
+
+        <View style={styles.buttonWrapper}>
+        <TouchableHighlight
+      style={styles.button}
+      onPress={this.handleAudioPress.bind(this)}>
+        <View style={styles.audio}>
+        <Image source={require('image!ic_mic')} />
+        <Text style={styles.buttonTitle}>Audio</Text>
+      </View>
+        </TouchableHighlight>
+        </View>
         </View>
     );
   }
 };
+
+var styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#B5C6CC',
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 100,
+  },
+
+  buttonWrapper: {
+    flex: .5,
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
+
+  button: {
+    flex: 1,
+  },
+
+  buttonTitle: {
+    color: '#222222',
+  },
+
+  camera: {
+    flex: 1,
+    backgroundColor: '#EBF0F5',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  audio: {
+    flex: 1,
+    backgroundColor: '#EBF0F5',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

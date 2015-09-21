@@ -20,11 +20,14 @@ export default class NewCollectionScreen extends React.Component {
     console.log(this.state);
     return (
         <View style={styles.container}>
-        <Text>Choose a name for your collection</Text>
+        <View style={styles.row}>
+        <Text style={styles.description}>Collection name</Text>
         <TextInput
-      style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+      style={styles.input}
+      placeholder="ex: Restaurants, AwesomeProject, etc"
       onChangeText={(text) => this.setState({text})}
       value={this.state.text} />
+        </View>
         </View>
     );
   }
@@ -32,6 +35,26 @@ export default class NewCollectionScreen extends React.Component {
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+    paddingTop: 80,
+    backgroundColor: '#B5C6CC',
+  },
+
+  row: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+
+  description: {
+    flex: .4,
+  },
+
+  input: {
+    flex: .6,
+    fontSize: 12,
+  },
 });
