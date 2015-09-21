@@ -82,14 +82,14 @@ var styles = StyleSheet.create({
 
   camera: {
     flex: 1,
-    backgroundColor: '#EBF0F5',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   audio: {
     flex: 1,
-    backgroundColor: '#EBF0F5',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },

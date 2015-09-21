@@ -23,7 +23,8 @@ export default class FlashNavigator extends React.Component {
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#B5C6CC',
   },
 
   wrapper: {

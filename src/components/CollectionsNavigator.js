@@ -74,6 +74,7 @@ export default class CollectionsNavigator extends React.Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#B5C6CC',
   },
 
   wrapper: {
