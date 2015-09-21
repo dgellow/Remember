@@ -54,7 +54,6 @@ var styles = StyleSheet.create({
     flex: .8,
     padding: 20,
     justifyContent: 'center',
-    alignItems: 'center',
     borderBottomWidth: 0.5,
     borderBottomColor: '#AAAAAA',
   },
