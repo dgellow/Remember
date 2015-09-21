@@ -33,13 +33,15 @@ class Remember extends React.Component {
         <TabBarIOS>
         <TabBarIOS.Item
       title='Collections'
+      icon={require('image!ic_collections')}
       selected={this.state.selectedTab === 'collections'}
       onPress={() => this.setState({selectedTab: 'collections'})}>
             <CollectionsNavigator/>
           </TabBarIOS.Item>
 
         <TabBarIOS.Item
-      title='Flash'
+      title='Flash actions'
+      icon={require('image!ic_flash_on')}
       selected={this.state.selectedTab === 'flash'}
       onPress={() => this.setState({selectedTab: 'flash'})}>
             <FlashNavigator/>
