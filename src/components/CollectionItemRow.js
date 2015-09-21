@@ -9,11 +9,11 @@ let {
 
 export default class CollectionItemRow extends React.Component {
   render() {
-    let {image, note} = this.props.rowData;
+    let {image, text} = this.props.rowData;
     return (
         <View>
         <Image source={{uri: image}} style={{width: 100, height: 100}} />
-        <Text>{note}</Text>
+        <Text>{text}</Text>
         </View>
     );
   }
