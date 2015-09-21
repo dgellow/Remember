@@ -1,7 +1,7 @@
 /* jshint jsnext: true */
 
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import EventEmitter from 'EventEmitter';
+import EventEmitter from 'events';
 import {AsyncStorage} from 'react-native';
 
 let STORAGE_COLLECTIONS_KEY = '@Remember:Collections';
@@ -34,6 +34,17 @@ var CollectionsStore = {
   getAll() {
     return this.collections;
   },
+
+  getAttrs(attr) {
+    return this.collections
+      .map((x) => x[attr])
+      .reduce((acc, x) => {
+        if (x !== null && x !== undefined)  {
+          acc.push(x);
+        }
+        return acc;
+      }, []);
+  },
 };
 export default CollectionsStore;
 
@@ -55,6 +66,20 @@ AppDispatcher.register((payload) => {
 
   case 'new-collection':
     CollectionsStore.collections.push(payload.newCollection);
+    writeToStorage().done(CollectionsStore.eventEmitter.emit('change'));
+    break;
+
+  case 'insert-item':
+    var {collection, index} = CollectionsStore.collections
+      .reduce((acc, collection, index) => {
+        if (collection.name === payload.item.collection) {
+          acc = {collection, index};
+        }
+        return acc;
+      }, {});
+    let {text, image} = payload.item;
+    collection.items.push({text, image});
+    CollectionsStore.collections[index] = collection;
     writeToStorage().done(CollectionsStore.eventEmitter.emit('change'));
     break;
   }

@@ -18,18 +18,8 @@ export default class FlashSetNotes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: this.props.text || '',
     };
-  }
-
-  handlePress(event) {
-    console.log(event);
-  }
-
-  renderItem(collection) {
-    return collection === this.state.selectedItem ?
-      (<Item selected={true}>{collection}</Item>) :
-    (<Item>{collection}</Item>);
   }
 
   render() {

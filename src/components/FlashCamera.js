@@ -8,6 +8,9 @@ let {
   AlertIOS,
 } = React;
 
+import AppDispatcher from '../dispatchers/AppDispatcher';
+import FlashPreviewStore from '../stores/FlashPreviewStore';
+
 import Camera from 'react-native-camera';
 import FlashPreviewScreen from './FlashPreviewScreen';
 
@@ -25,19 +28,23 @@ export default class FlashCamera extends React.Component {
         console.error(error);
         AlertIOS.alert('An error occurred during picture taking');
       } else {
+        AppDispatcher.dispatch({eventName: 'set-image', image: data});
         this.props.navigator.replace({
           title: 'Preview',
           component: FlashPreviewScreen,
           leftButtonTitle: 'Cancel',
           rightButtonTitle: 'Done',
           onLeftButtonPress: () => {
+            AppDispatcher.dispatch({eventName: 'clear-preview'});
             this.props.navigator.pop();
           },
           onRightButtonPress: () => {
+            AppDispatcher.dispatch({
+              eventName: 'insert-item',
+              item: FlashPreviewStore.get()
+            });
+            AppDispatcher.dispatch({eventName: 'clear-preview'});
             this.props.navigator.pop();
-          },
-          passProps: {
-            assetUri: data
           }
         });
       }
@@ -48,7 +55,6 @@ export default class FlashCamera extends React.Component {
     return (
         <Camera ref="cam"
       style={styles.container}
-      onBarCodeRead={this.handleBarCodeRead}
       type={this.state.cameraType}>
         <TouchableHighlight onPress={this.handleTakePicture.bind(this)}>
         <Text>Take Picture</Text>

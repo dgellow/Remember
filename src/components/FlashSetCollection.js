@@ -13,28 +13,32 @@ let {
   Item,
 } = TableView;
 
+import CollectionsStore from '../stores/CollectionsStore';
+
 export default class FlashSetCollection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      collections: ['Hello', 'Nuieu', 'Tdite', 'Iuier', 'Cdietd']
+      collections: CollectionsStore.getAttrs('name'),
+      selectedItem: this.props.collection || '',
     };
   }
 
-  handlePress(event) {
-    console.log(event);
-  }
-
-  renderItem(collection) {
-    return collection === this.state.selectedItem ?
-      (<Item selected={true}>{collection}</Item>) :
-    (<Item>{collection}</Item>);
+  renderItem(collection, index) {
+    var props = {
+      key: `collection-item-${index}`,
+      onPress: () => this.setState({selectedItem: collection}),
+    };
+    if (collection === this.state.selectedItem) {
+      props.selected = true;
+    }
+    return React.createElement(Item, props, collection);
   }
 
   render() {
     var items = this.state.collections.map(this.renderItem, this);
     return (
-        <TableView onPress={this.handlePress} style={{flex: 1}}>
+        <TableView style={{flex: 1}} selected={true}>
         <Section>
         {items}
       </Section>
