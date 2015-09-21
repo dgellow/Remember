@@ -5,15 +5,13 @@ import React from 'react-native';
 let {
   StyleSheet,
   NavigatorIOS,
-  AsyncStorage,
   AlertIOS,
 } = React;
 
+import AppDispatcher from '../dispatchers/AppDispatcher';
+
 import CollectionsListScreen from './CollectionsListScreen';
 import NewCollectionScreen from './NewCollectionScreen';
-
-let STORAGE_COLLECTIONS_KEY = '@Remember:Collections';
-let STORAGE_COLLECTIONS_DEFAULT_DATA = [];
 
 function createCollection(name) {
   return {
@@ -23,58 +21,10 @@ function createCollection(name) {
 }
 
 export default class CollectionsNavigator extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      collections: STORAGE_COLLECTIONS_DEFAULT_DATA
-    };
-  }
-
-  emitChange() {
-    this.eventEmitter.emit('collections:change', this.state.collections);
-  }
-
-  async writeDefaultData() {
-    try {
-      this.writeData(STORAGE_COLLECTIONS_DEFAULT_DATA).done();
-    } catch (error) {
-      console.error(error);
-      AlertIOS.alert("Couldn't write default data");
-    }
-  }
-
-  async writeData(data) {
-    try {
-      await AsyncStorage.setItem(
-        STORAGE_COLLECTIONS_KEY,
-        JSON.stringify(data)
-      );
-    } catch(error) {
-      console.error(error);
-      AlertIOS.alert("Couldn't write data");
-    }
-  }
-
-  async loadInitialState() {
-    try {
-      let value = await AsyncStorage.getItem(STORAGE_COLLECTIONS_KEY);
-      if (value) {
-        let collections = JSON.parse(value);
-        this.setState({collections});
-      } else {
-        this.writeDefaultData().done();
-      }
-    } catch (error) {
-      console.error(error);
-      AlertIOS.alert("Couldn't read data");
-    }
-  }
-
   addCollection(collection) {
-    this.setState({
-      collections: this.state.collections.concat(collection)
-    }, () => {
-      this.writeData(this.state.collections).done(this.emitChange.bind(this));
+    AppDispatcher.dispatch({
+      eventName: 'new-collection',
+      newCollection: collection
     });
   }
 
@@ -105,14 +55,6 @@ export default class CollectionsNavigator extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.loadInitialState().done(this.emitChange.bind(this));
-  }
-
-  componentWillMount() {
-    this.eventEmitter = new EventEmitter();
-  }
-
   render() {
     return (
         <NavigatorIOS
@@ -124,9 +66,6 @@ export default class CollectionsNavigator extends React.Component {
         component: CollectionsListScreen,
         rightButtonTitle: 'Add',
         onRightButtonPress: this.handleRightButtonPress.bind(this),
-        passProps: {
-          events: this.eventEmitter,
-        },
       }} />
     );
   }

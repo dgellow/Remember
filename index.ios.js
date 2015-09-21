@@ -11,8 +11,8 @@ let {
   TabBarIOS,
 } = React;
 
-import Camera from 'react-native-camera';
-import styles from './src/config/styles';
+import AppDispatcher from './src/dispatchers/AppDispatcher';
+
 import CollectionsNavigator from './src/components/CollectionsNavigator';
 import FlashNavigator from './src/components/FlashNavigator';
 
@@ -22,6 +22,10 @@ class Remember extends React.Component {
     this.state = {
       selectedTab: 'collections'
     };
+  }
+
+  componentDidMount() {
+    AppDispatcher.dispatch({eventName: 'read-from-storage'});
   }
 
   render() {
